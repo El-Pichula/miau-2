@@ -29,17 +29,9 @@ protected:
     float mn[12][15]; // Matriz de números reales
     int M; // Número de meses
     int N; // Número de sucursales
+    fstream archivo;
 
 public:
-    sistema(){
-    M = 0;
-    N = 0;
-    for (int i=0;i<12;i++){ // Recorrido por filas
-        for (int j=0;j<15;j++){
-            mn[i][j]=0.0;
-            }
-        }
-    }
 
     // Método para ingresar las ventas de cada sucursal en cada mes
     void ingresarVentas() {
@@ -53,38 +45,52 @@ public:
 
     // Método para mostrar las ventas de cada sucursal en cada mes
     void mostrarVentas() const {
-        cout << "\nMontos de ventas de " << N << " sucursales en " << M << " meses" << endl;
-        cout << setw(10) << "Sucursales";
-        for (int i = 0; i < M; ++i) {
-            cout << setw(10) << "Mes " << i + 1;
-        }
-        cout << endl;
-        for (int j = 0; j < N; ++j) {
-            cout << setw(10) << "Sucursal " << j + 1;
-            for (int i = 0; i < M; ++i) {
-                cout << setw(10) << meses[i].getVentas(j + 1); // Se llama al método getVentas de la clase Mes
+        cout << "\nMontos de venta de " << N << " Sucursales en " << M << " Meses\n";
+            for(int i=0;i<N;i++){ // Recorrido por filas
+                for(int j=0;j<M;j++){
+                    cout << mn[i][j] << "\t";
+                }
+                cout << "\n";
             }
-            cout << endl;
-        }
+            cin.get();
     }
 
     // Método para respaldar los datos de ventas en un archivo
-    void respaldarDatos(const string& nombreArchivo) const {
-        ofstream archivo(nombreArchivo);
-        if (archivo.is_open()) {
-            archivo << "Montos de ventas de " << N << " sucursales en " << M << " meses" << endl;
-            for (int j = 0; j < N; ++j) {
-                archivo << "Sucursal " << j + 1 << ": ";
-                for (int i = 0; i < M; ++i) {
-                    archivo << meses[i].getVentas(j + 1) << " "; // Se llama al método getVentas de la clase Mes
+    void respaldarDatos(string nombreArchivo){
+            archivo.open(nombreArchivo ,ios::out);
+            archivo.close();
+            // Se abre en modo de agregación para insertar datos
+            archivo.open(nombreArchivo,ios::app);
+            // Se guardan los datos pertinentes
+            archivo << N << '\n';
+            archivo << M << '\n';
+            for(int i=0;i<N;i++){ // Recorrido por filas
+                for(int j=0;j<M;j++){
+                    archivo << mn[i][j] << '\n';
                 }
-                archivo << endl;
+            }
+            cout << "Matriz respaldada en archivo..." << '\n';
+            archivo.close();
+            cin.get();
+    }
+
+    void cargar(string nombreArchivo){
+        // Se abre el archivo en modo lectura para extraer los datos
+        archivo.open(nombreArchivo ,ios::in);
+        if (!archivo) // Si se produce un error, el archivo no existe
+            cout << "El archivo No existe!!!" << '\n';
+        else { // El archivo existe y se extraen los datos pertinentes
+            archivo >> N;
+            archivo >> M;
+            for(int i=0;i<N;i++){ // Recorrido por filas
+                for(int j=0;j<M;j++){
+                    archivo >> mn[i][j];
+                }
             }
             archivo.close();
-            cout << "Datos respaldados en archivo: " << nombreArchivo << endl;
-        } else {
-            cerr << "No se pudo abrir el archivo para respaldar datos." << endl;
+            cout << "Matriz recuperada desde archivo..." << '\n';
         }
+        cin.get();
     }
 };
 
@@ -95,7 +101,6 @@ int main() {
     int opcion;
 
     cout << "Cosmeticos gatito: Sistema de gestion de ventas." << endl;
-
     do {
         // Menú principal para seleccionar el tipo de usuario
         cout << "\nSeleccione el tipo de usuario:" << endl;
@@ -127,9 +132,9 @@ int main() {
                     }
                 } while (M < 1 || M > MAX_MESES);
 
-                Sistema sistema(M, N);
-                sistema.ingresarVentas();
-                sistema.mostrarVentas();
+                sistema Sistema;
+                Sistema.ingresarVentas();
+                Sistema.mostrarVentas();
 
                 string nombreArchivo;
                 cout << "\nDesea respaldar los datos en un archivo? (S/N): ";
@@ -138,7 +143,7 @@ int main() {
                 if (respuesta == 'S' || respuesta == 's') {
                     cout << "Ingrese el nombre del archivo para respaldar los datos: ";
                     cin >> nombreArchivo;
-                    sistema.respaldarDatos(nombreArchivo);
+                    Sistema.respaldarDatos(nombreArchivo);
                 }
             } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
