@@ -45,10 +45,8 @@ public:
     void ingresarVentas() {
         for (int i = 0; i < M; ++i) {
             for (int j = 0; j < N; ++j) {
-                float monto;
                 cout << "Ingrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
-                cin >> monto;
-                meses[i].setVentas(j + 1, monto); // Se llama al método setVentas de la clase Mes
+                cin >> mn[i][j];
             }
         }
     }
