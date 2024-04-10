@@ -1,3 +1,15 @@
+/*
+Nombre de la asignatura: Paradigmas de programacion
+NRC: 8150 / Seccion: 558
+
+Leve descripcion: miau
+
+Nombres autores: Maximiliano Cantillana [AGREGAR RUT]
+                  Catalina Gamonal [AGREGAR RUT]
+                  Valeria apellidoxd [AGREGAR RUT]
+                  Liliana Valverde 21.438.525.2
+*/
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -11,33 +23,23 @@ const int MAX_MESES = 12, MAX_SUCURSALES = 15;
 // Contraseñas para operador y directivo
 const string CONTRASENA_OPERADOR = "operador123", CONTRASENA_DIRECTIVO = "directivo456";
 
-// Clase Mes para almacenar las ventas de cada sucursal en cada mes
-class Mes {
-private:
-    float ventas[MAX_SUCURSALES]; // Array para almacenar las ventas de cada sucursal
 
-public:
-    // Método para establecer las ventas de una sucursal en un mes específico
-    void setVentas(int sucursal, float monto) {
-        ventas[sucursal - 1] = monto; // Se resta 1 para ajustar el índice del array
-    }
-
-    // Método para obtener las ventas de una sucursal en un mes específico
-    float getVentas(int sucursal) const {
-        return ventas[sucursal - 1]; // Se resta 1 para ajustar el índice del array
-    }
-};
-
-// Clase Sistema para gestionar las ventas
-class Sistema {
+class sistema {
 protected:
+    float mn[12][15]; // Matriz de números reales
     int M; // Número de meses
     int N; // Número de sucursales
-    Mes meses[MAX_MESES]; // Array de objetos Mes para almacenar las ventas
 
 public:
-    // Constructor que inicializa el número de meses y sucursales
-    Sistema(int meses, int sucursales) : M(meses), N(sucursales) {}
+    sistema(){
+    M = 0;
+    N = 0;
+    for (int i=0;i<12;i++){ // Recorrido por filas
+        for (int j=0;j<15;j++){
+            mn[i][j]=0.0;
+            }
+        }
+    }
 
     // Método para ingresar las ventas de cada sucursal en cada mes
     void ingresarVentas() {
@@ -68,19 +70,15 @@ public:
         }
     }
 
-    // Método para respaldar los datos de ventas en un archivo como matriz
+    // Método para respaldar los datos de ventas en un archivo
     void respaldarDatos(const string& nombreArchivo) const {
         ofstream archivo(nombreArchivo);
         if (archivo.is_open()) {
-            archivo << "0";
+            archivo << "Montos de ventas de " << N << " sucursales en " << M << " meses" << endl;
             for (int j = 0; j < N; ++j) {
-                archivo << " " << j + 1;
-            }
-            archivo << endl;
-            for (int i = 0; i < M; ++i) {
-                archivo << i + 1;
-                for (int j = 0; j < N; ++j) {
-                    archivo << " " << meses[i].getVentas(j + 1); // Se llama al método getVentas de la clase Mes
+                archivo << "Sucursal " << j + 1 << ": ";
+                for (int i = 0; i < M; ++i) {
+                    archivo << meses[i].getVentas(j + 1) << " "; // Se llama al método getVentas de la clase Mes
                 }
                 archivo << endl;
             }
@@ -92,19 +90,13 @@ public:
     }
 };
 
-// Función para limpiar el búfer de entrada de cin
-// Esto se utiliza para eliminar cualquier entrada adicional en el búfer de entrada después de leer datos de cin,
-// permitiendo que el programa continúe su ejecución sin problemas.
-void clearInputBuffer() {
-    cin.clear();
-    cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-}
+
 
 int main() {
     int M, N; // Variables para el número de meses y sucursales
     int opcion;
 
-    cout << "Cosmeticos ACME: Sistema de gestion de ventas." << endl;
+    cout << "Cosmeticos gatito: Sistema de gestion de ventas." << endl;
 
     do {
         // Menú principal para seleccionar el tipo de usuario
@@ -114,7 +106,6 @@ int main() {
         cout << "3. Salir del programa" << endl;
         cin >> opcion;
 
-        clearInputBuffer();
 
         if (opcion == 1) { // Opción para operador
             string contrasena;
@@ -160,7 +151,7 @@ int main() {
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
-                cout << "\nFuncionalidad del Directivo aun no implementada." << endl;
+                cout << "\nFuncionalidad del Directivo aun no implementada miau :33" << endl;
             } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
