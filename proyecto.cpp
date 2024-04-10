@@ -1,15 +1,3 @@
-/*
-Nombre de la asignatura: Paradigmas de programacion
-NRC: 8150 / Seccion: 558
-
-Leve descripcion: miau
-
-Nombres autores: Maximiliano Cantillana [AGREGAR RUT]
-                  Catalina Gamonal [AGREGAR RUT]
-                  Valeria apellidoxd [AGREGAR RUT]
-                  Liliana Valverde 21.438.525.2
-*/
-
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -80,15 +68,19 @@ public:
         }
     }
 
-    // Método para respaldar los datos de ventas en un archivo
+    // Método para respaldar los datos de ventas en un archivo como matriz
     void respaldarDatos(const string& nombreArchivo) const {
         ofstream archivo(nombreArchivo);
         if (archivo.is_open()) {
-            archivo << "Montos de ventas de " << N << " sucursales en " << M << " meses" << endl;
+            archivo << "0";
             for (int j = 0; j < N; ++j) {
-                archivo << "Sucursal " << j + 1 << ": ";
-                for (int i = 0; i < M; ++i) {
-                    archivo << meses[i].getVentas(j + 1) << " "; // Se llama al método getVentas de la clase Mes
+                archivo << " " << j + 1;
+            }
+            archivo << endl;
+            for (int i = 0; i < M; ++i) {
+                archivo << i + 1;
+                for (int j = 0; j < N; ++j) {
+                    archivo << " " << meses[i].getVentas(j + 1); // Se llama al método getVentas de la clase Mes
                 }
                 archivo << endl;
             }
@@ -112,7 +104,7 @@ int main() {
     int M, N; // Variables para el número de meses y sucursales
     int opcion;
 
-    cout << "Cosmeticos gatito: Sistema de gestion de ventas." << endl;
+    cout << "Cosmeticos ACME: Sistema de gestion de ventas." << endl;
 
     do {
         // Menú principal para seleccionar el tipo de usuario
@@ -168,7 +160,7 @@ int main() {
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
-                cout << "\nFuncionalidad del Directivo aun no implementada miau :33" << endl;
+                cout << "\nFuncionalidad del Directivo aun no implementada." << endl;
             } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
