@@ -24,7 +24,7 @@ public:
     // Método para ingresar las ventas de cada sucursal en cada mes
     void ingresarVentas() {
         do {
-            cout << "Ingrese el numero de sucursales (maximo 15): ";
+            cout << "\nIngrese el numero de sucursales (maximo 15): ";
             cin >> N;
             if (N < 1 || N > 15) {
                 cout << "El numero de sucursales debe estar entre 1 y 15!!!" << endl;
@@ -32,7 +32,7 @@ public:
         } while (N < 1 || N > 15);
 
         do {
-            cout << "Ingrese el numero de meses (maximo 12): ";
+            cout << "\nIngrese el numero de meses (maximo 12): ";
             cin >> M;
             if (M < 1 || M > 12) {
                 cout << "El numero de meses debe estar entre 1 y 12!!!" << endl;
@@ -41,7 +41,7 @@ public:
 
         for (int i = 0; i < M; ++i) {
             for (int j = 0; j < N; ++j) {
-                cout << "Ingrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
+                cout << "\nIngrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
                 cin >> MONTO[i][j];
             }
         }
@@ -76,9 +76,13 @@ public:
         cin >> respuesta;
 
         if (respuesta == 's' || respuesta == 'S') {
-            archivo.open("archivo respaldo.txt",ios::out);
+            string nombreArchivo;
+            cout << "Ingrese el nombre del archivo: ";
+            cin >> nombreArchivo;
+
+            archivo.open(nombreArchivo + ".txt", ios::out);
             archivo.close();
-            archivo.open("archivo respaldo.txt",ios::app);
+            archivo.open(nombreArchivo + ".txt", ios::app);
             archivo << M << '\n';
             archivo << N << '\n';
             for(int i=0; i<M; i++){ // Recorrido por filas
@@ -87,13 +91,32 @@ public:
                 }
             }
             archivo.close();
-            cout << "Los datos han sido exitosamente guardados..." << endl;
+            cout << "Los datos se han guardado exitosamente en " << nombreArchivo << ".txt" << endl;
         } else {
             cout << "Los datos no se han guardado." << endl;
         }
         cin.ignore();
         cin.get();
     }
+
+    void LeerDatos(int M, int N, float MONTO[12][15], string nombreArchivo){
+            // Se abre el archivo en modo lectura para extraer los datos
+            archivo.open(nombreArchivo ,ios::in);
+            if (!archivo) // Si se produce un error, el archivo no existe
+                cout << "El archivo no existe!!!" << '\n';
+            else { // El archivo existe y se extraen los datos pertinentes
+                archivo >> N;
+                archivo >> M;
+                for(int i=0;i<N;i++){ // Recorrido por filas
+                    for(int j=0;j<M;j++){
+                        archivo >> MONTO[i][j];
+                    }
+                }
+                archivo.close();
+                cout << "Matriz recuperada desde archivo..." << '\n';
+            }
+            cin.get();
+        }
 };
 
 int main() {
