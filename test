@@ -24,7 +24,7 @@ public:
     // Método para ingresar las ventas de cada sucursal en cada mes
     void ingresarVentas() {
         do {
-            cout << "\nIngrese el numero de sucursales (maximo 15): ";
+            cout << "Ingrese el numero de sucursales (maximo 15): ";
             cin >> N;
             if (N < 1 || N > 15) {
                 cout << "El numero de sucursales debe estar entre 1 y 15!!!" << endl;
@@ -32,7 +32,7 @@ public:
         } while (N < 1 || N > 15);
 
         do {
-            cout << "\nIngrese el numero de meses (maximo 12): ";
+            cout << "Ingrese el numero de meses (maximo 12): ";
             cin >> M;
             if (M < 1 || M > 12) {
                 cout << "El numero de meses debe estar entre 1 y 12!!!" << endl;
@@ -41,7 +41,7 @@ public:
 
         for (int i = 0; i < M; ++i) {
             for (int j = 0; j < N; ++j) {
-                cout << "\nIngrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
+                cout << "Ingrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
                 cin >> MONTO[i][j];
             }
         }
@@ -76,13 +76,9 @@ public:
         cin >> respuesta;
 
         if (respuesta == 's' || respuesta == 'S') {
-            string nombreArchivo;
-            cout << "Ingrese el nombre del archivo: ";
-            cin >> nombreArchivo;
-
-            archivo.open(nombreArchivo + ".txt", ios::out);
+            archivo.open("archivo respaldo.txt",ios::out);
             archivo.close();
-            archivo.open(nombreArchivo + ".txt", ios::app);
+            archivo.open("archivo respaldo.txt",ios::app);
             archivo << M << '\n';
             archivo << N << '\n';
             for(int i=0; i<M; i++){ // Recorrido por filas
@@ -91,7 +87,7 @@ public:
                 }
             }
             archivo.close();
-            cout << "Los datos se han guardado exitosamente en " << nombreArchivo << ".txt" << endl;
+            cout << "Los datos han sido exitosamente guardados..." << endl;
         } else {
             cout << "Los datos no se han guardado." << endl;
         }
@@ -144,4 +140,3 @@ int main() {
 
     return 0;
 }
-
