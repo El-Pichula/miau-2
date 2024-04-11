@@ -4,27 +4,27 @@ using namespace std;
 
 const string CONTRASENA_OPERADOR = "operador123", CONTRASENA_DIRECTIVO = "directivo456";
 
-class sistema {
-protected:
-    float mn[12][15]; // Matriz de números reales
+class Datos {
+public:
+    float MONTO[12][15]; // Matriz de números reales
     int M; // Número de meses
     int N; // Número de sucursales
-
-public:
-    sistema() {
+    Datos() {
         M = 0;
         N = 0;
         for (int i = 0; i < 12; i++) { // Inicialización de la matriz
             for (int j = 0; j < 15; j++) {
-                mn[i][j] = 0.0;
+                MONTO[i][j] = 0.0;
             }
         }
     }
 
+    ~Datos(){}
+
     // Método para ingresar las ventas de cada sucursal en cada mes
     void ingresarVentas() {
         do {
-            cout << "Ingrese el numero de sucursales (maximo 15): ";
+            cout << "\nIngrese el numero de sucursales (maximo 15): ";
             cin >> N;
             if (N < 1 || N > 15) {
                 cout << "El numero de sucursales debe estar entre 1 y 15!!!" << endl;
@@ -32,7 +32,7 @@ public:
         } while (N < 1 || N > 15);
 
         do {
-            cout << "Ingrese el numero de meses (maximo 12): ";
+            cout << "\nIngrese el numero de meses (maximo 12): ";
             cin >> M;
             if (M < 1 || M > 12) {
                 cout << "El numero de meses debe estar entre 1 y 12!!!" << endl;
@@ -41,8 +41,8 @@ public:
 
         for (int i = 0; i < M; ++i) {
             for (int j = 0; j < N; ++j) {
-                cout << "Ingrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
-                cin >> mn[i][j];
+                cout << "\nIngrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
+                cin >> MONTO[i][j];
             }
         }
     }
@@ -59,14 +59,18 @@ public:
         for (int i = 0; i < N; i++) { // Recorrido por columnas (sucursales)
             cout << "sucursal " << i + 1 << "\t";
             for (int j = 0; j < M; j++) { // Recorrido por filas (meses)
-                cout << mn[j][i] << "\t";
+                cout << MONTO[j][i] << "\t";
             }
             cout << endl;
         }
     }
+};
 
-    // Método para respaldar los datos de ventas en un archivo
-    void respaldarDatos() {
+class Archivo {
+private:
+    fstream archivo; // Archivo para el respaldo de datos
+public:
+    void respaldar(int M, int N, float MONTO[12][15]) {
         char respuesta;
         cout << "¿Desea respaldar los datos en un archivo? (s/n): ";
         cin >> respuesta;
@@ -76,24 +80,30 @@ public:
             cout << "Ingrese el nombre del archivo: ";
             cin >> nombreArchivo;
 
-            ofstream archivo(nombreArchivo + ".txt");
-
-            for (int i = 0; i < M; ++i) {
-                for (int j = 0; j < N; ++j) {
-                    archivo << mn[i][j] << " ";
+            archivo.open(nombreArchivo + ".txt", ios::out);
+            archivo.close();
+            archivo.open(nombreArchivo + ".txt", ios::app);
+            archivo << M << '\n';
+            archivo << N << '\n';
+            for(int i=0; i<M; i++){ // Recorrido por filas
+                for(int j=0; j<N; j++){
+                    archivo << MONTO[i][j] << '\n';
                 }
-                archivo << endl;
             }
-
             archivo.close();
             cout << "Los datos se han guardado exitosamente en " << nombreArchivo << ".txt" << endl;
+        } else {
+            cout << "Los datos no se han guardado." << endl;
         }
+        cin.ignore();
+        cin.get();
     }
-
 };
 
 int main() {
     int opcion;
+    Datos om; // Objeto matriz
+    Archivo oa; // Objeto archivo
 
     cout << "Cosmeticos gatito: Sistema de gestion de ventas." << endl;
 
@@ -105,17 +115,15 @@ int main() {
         cout << "3. Salir del programa" << endl;
         cin >> opcion;
 
-        sistema miau;
-
         if (opcion == 1) { // Opción para operador
             string contrasena;
             cout << "\nIngrese la clave de operador: ";
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_OPERADOR) { // Verificación de la contraseña del operador
-                miau.ingresarVentas();
-                miau.mostrarVentas();
-                miau.respaldarDatos();
+                om.ingresarVentas();
+                om.mostrarVentas();
+                oa.respaldar(om.M,om.N,om.MONTO);
             } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
@@ -136,3 +144,4 @@ int main() {
 
     return 0;
 }
+
