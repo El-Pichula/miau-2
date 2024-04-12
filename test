@@ -57,7 +57,7 @@ public:
     }
 
     void mostrarVentas() { // Definicion del metodo para mostrar las ventas de cada sucursal en cada mes como 'mostrarVentas'
-        cout << "\nGanancias de " << M << " meses en " << N << " sucursales\n"; // Imprime un encabezado indicando el número de meses y sucursales
+        cout << "\nGanancias de " << N << " sucursales en " << M << " meses\n"; // Imprime un encabezado indicando el número de meses y sucursales
         cout << "\t";
         for (int i = 0; i < N; i++) { // Bucle para iterar sobre el número de sucursales
             cout << "sucursal " << i + 1 << "\t"; // Imprime el encabezado de cada sucursal
@@ -164,7 +164,7 @@ public:
             cin.get();
 
             cout <<"\nCosmeticos Gatito: Sistema de gestion de ventas\n";
-        cout << "\nGanancias de " << M << " meses en " << N << " sucursales\n"; // Imprime un encabezado indicando el número de meses y sucursales
+        cout << "\nGanancias de " << N << " sucursales en " << M << " meses\n"; // Imprime un encabezado indicando el número de meses y sucursales
         cout << "\t";
         for (int i = 0; i < N; i++) { // Bucle para iterar sobre el número de sucursales
             cout << "sucursal " << i + 1 << "\t"; // Imprime el encabezado de cada sucursal
