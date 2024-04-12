@@ -2,156 +2,136 @@
 Nombre de la asignatura: Paradigmas de programacion
 NRC: 8150 / Seccion: 558
 
-Leve descripcion: miau
+Leve descripcion: El código es un sistema de gestión de ventas diseñado para una empresa de cosméticos. Ofrece dos opciones de usuario: Operador y Directivo. Los operadores ingresan y respaldan datos de ventas por mes y sucursal. Los directivos pueden leer estos datos respaldados y acceder a estadísticas como la suma de ventas por sucursal, los promedios de ventas mensuales y el mes con el mayor promedio de ventas.
 
-Nombres autores: Maximiliano Cantillana [AGREGAR RUT]
+Nombres autores:  Maximiliano Cantillana 21.141.918-0
                   Catalina Gamonal [AGREGAR RUT]
-                  Valeria apellidoxd [AGREGAR RUT]
+                  Valeria Cofré [AGREGAR RUT]
                   Liliana Valverde 21.438.525.2
 */
 
 #include <iostream>
-#include <fstream>
+#include <fstream> //Incluye libreria que permite el manejo de archivos
 using namespace std;
 
-const string CONTRASENA_OPERADOR = "operador123", CONTRASENA_DIRECTIVO = "directivo456";
+const string CONTRASENA_OPERADOR = "operador123", CONTRASENA_DIRECTIVO = "directivo456"; // Declaración de constantes para contraseñas de operador y directivo
 
-class Datos {
+class Datos { // Definición de la clase Datos
 public:
-    float MONTO[12][15]; // Matriz de números reales
-    int M; // Número de meses
-    int N; // Número de sucursales
-    Datos() {
+    float MONTO[12][15]; // Definicion de matriz 'MONTO' en donde se almancenan los datos (ademas de la definicion de las dimensiones maximas para filas y columnas)
+    int M; // Definicion de variable 'M' que representara los meses
+    int N; // Definicion de variable 'N' que represetara las sucursales
+    Datos() { // Constructor de la clase Datos
         M = 0;
         N = 0;
-        for (int i = 0; i < 12; i++) { // Inicialización de la matriz
+        for (int i = 0; i < 12; i++) { //Construccion de la matriz 'MONTO'
             for (int j = 0; j < 15; j++) {
                 MONTO[i][j] = 0.0;
             }
         }
     }
 
-    // Método para ingresar las ventas de cada sucursal en cada mes
-    void ingresarVentas() {
-        do {
-            cout << "\nIngrese el numero de sucursales (maximo 15): ";
-            cin >> N;
-            if (N < 1 || N > 15) {
+    void ingresarVentas() { // Definicion método para ingresar las ventas de cada sucursal en cada mes como 'ingresarVentas'
+        do { //Inicio de un bucle do-while
+            cout << "Ingrese el numero de sucursales (maximo 15): ";
+            cin >> N; //Registro numero de sucursales ingresado por el operador
+            if (N < 1 || N > 15) { // Comprueba si el número de sucursales está fuera del rango permitido
                 cout << "El numero de sucursales debe estar entre 1 y 15!!!" << endl;
             }
-        } while (N < 1 || N > 15);
+        } while (N < 1 || N > 15); // El bucle funcionara si el número de meses esta dentro del rango permitido
 
         do {
-            cout << "\nIngrese el numero de meses (maximo 12): ";
-            cin >> M;
-            if (M < 1 || M > 12) {
+            cout << "Ingrese el numero de meses (maximo 12): ";
+            cin >> M; //Registro numero de meses ingresado por el operador
+            if (M < 1 || M > 12) { // Comprueba si el número de meses está fuera del rango permitido
                 cout << "El numero de meses debe estar entre 1 y 12!!!" << endl;
             }
-        } while (M < 1 || M > 12);
+        } while (M < 1 || M > 12); // El bucle funcionara si el número de sucursales esta dentro del rango permitido
 
-        for (int i = 0; i < M; ++i) {
+        for (int i = 0; i < M; ++i) { // Bucle para ingresar las ventas de cada sucursal en cada mes (se establece que las filas son los meses y las columnas las sucursales)
             for (int j = 0; j < N; ++j) {
-                cout << "\nIngrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
-                cin >> MONTO[i][j];
+                cout << "Ingrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
+                cin >> MONTO[i][j]; //Se registran los datos ingresador por el operador a la matriz MONTO
             }
         }
     }
 
-    // Método para mostrar las ventas de cada sucursal en cada mes
-    void mostrarVentas() {
-        cout << "\nGanancias de " << N << " sucursales en " << M << " meses\n";
-        cout << "\t\t";
-        for (int i = 0; i < M; i++) { // Mostrar encabezados de meses
-            cout << "mes " << i + 1 << "\t";
+    void mostrarVentas() { // Definicion del metodo para mostrar las ventas de cada sucursal en cada mes como 'mostrarVentas'
+        cout << "\nGanancias de " << M << " meses en " << N << " sucursales\n"; // Imprime un encabezado indicando el número de meses y sucursales
+        cout << "\t";
+        for (int i = 0; i < N; i++) { // Bucle para iterar sobre el número de sucursales
+            cout << "sucursal " << i + 1 << "\t"; // Imprime el encabezado de cada sucursal
         }
         cout << endl;
 
-        for (int i = 0; i < N; i++) { // Recorrido por columnas (sucursales)
-            cout << "sucursal " << i + 1 << "\t";
-            for (int j = 0; j < M; j++) { // Recorrido por filas (meses)
-                cout << MONTO[j][i] << "\t";
+        for (int i = 0; i < M; i++) { // Bucle para iterar sobre el número de meses
+            cout << "mes " << i + 1 << "\t"; // Imprime el encabezado de cada mes
+            for (int j = 0; j < N; j++) { // Bucle para iterar sobre el número de sucursales
+                cout << "\t" << MONTO[i][j] << "\t"; // Imprime el monto de ventas de la sucursal en el mes correspondiente
             }
             cout << endl;
         }
     }
-    void gestionVentas() {
 
-        float mayor = 0;
+    void gestionVentas() {
+        float mayor = 0; // Declaración de variables utilizadas para calcular el apartado de promedios
         int posicion;
 
-        cout <<"\nCosmeticos Gatito: Sistema de gestion de ventas\n";
-        cout <<"\nMontos de ventas de " << N << " sucursales en " << M << " meses\n";
-        cout <<"\t\t";
-        for (int i = 0; i < M; i++) { // Mostrar encabezados de meses
-            cout << "Mes " << i + 1 << "\t";
-        }
-        cout << endl;
-        for (int i = 0; i < N; i++) { // Recorrido por columnas (sucursales)
-            cout << "Sucursal " << i + 1 << "\t";
-            for (int j = 0; j < M; j++) { // Recorrido por filas (meses)
-                cout << MONTO[j][i] << "\t";
-            }
-            cout << endl;
-        }
-        cout << endl;
         cout <<"Monto de ventas por sucursales:\n";
-        for (int j = 0; j < N; j++) {
-            int suma = 0; // Inicializa la suma para cada fila
+        for (int j = 0; j < N; j++) { // Bucle para calcular y mostrar el monto de ventas por cada sucursal
+            float suma = 0; // Inicializa la suma para cada fila
 
-            // Itera sobre cada elemento de la fila actual
-            for (int i = 0; i < M; i++) {
+            for (int i = 0; i < M; i++) { // Bucle para sumar los montos de ventas de cada mes para sucursal
                 suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
             }
-
-            // Imprime la suma de la fila actual
-            cout << "Monto de ventas de la Sucursal " << j+1 << " : " << suma << endl;
+            cout << "Monto de ventas de la Sucursal " << j+1 << " : " << suma << endl; // Imprime la suma de la fila actual
         }
         cout << endl;
         cout << "Promedio de ventas por cada mes:\n";
 
-        float promedio, promedios[M];
+        float promedio, promedios[M]; //Se define un arreglo para almacenar los promedios de cada mes y poder trabajar con ellos
 
         for (int i = 0; i < M; i++) {
-            int suma = 0; // Inicializa la suma para cada fila
+            float suma = 0; // Inicializa la suma para cada fila
 
-            // Itera sobre cada elemento de la fila actual
-            for (int j = 0; j < N; j++) {
-                suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
+            for (int j = 0; j < N; j++) { // Bucle para sumar los montos de ventas de cada sucursal por mes
+                suma += MONTO[i][j]; // Suma el elemento actual al total de la columna
             }
 
-            promedio = (suma/N);
-            promedios[i] = promedio;
+            promedio = (suma/N);    // Se divide la suma total de la fila
+            promedios[i] = promedio; // Se almacena el promedio de cadda fila en el arreglo promedios
 
-            // Imprime la suma de la fila actual
-            cout << "Promedio de ventas del mes " << i+1 << " : " << promedio << endl;
-            suma = 0;
+            cout << "Promedio de ventas del mes " << i+1 << " : " << promedio << endl; // Imprime el promedio de ventas por mes
+            suma = 0; // Reinicia la suma para el próximo mes
         }
-        for (int i = 0; i < M; i++){
+        for (int i = 0; i < M; i++){    // Ciclo que recorre el arreglo promedios para buscar el promedio mayor
 
             if (promedios[i] > mayor){
-                mayor = promedios[i];
-                posicion = i;
+                mayor = promedios[i];   // Busca el promedio mayor y guarda la posicion de este para saber cual es el mes con mayor promedio
+                posicion = i; // Se registra la posición del mes con el mayor promedio
             }
         }
-        cout <<"Mes con mayor promedio: el Numero " << posicion + 1 << " con un promedio de: " << mayor << endl;
+        cout <<"Mes con mayor promedio: el Numero " << posicion + 1 << " con un promedio de: " << mayor << endl; // Imprime el mes con el mayor promedio de ventas
     }
+
 };
+
 class Archivo {
 private:
     fstream archivo; // Archivo para el respaldo de datos
 public:
-    void respaldar(int M, int N, float MONTO[12][15]) {
-        char respuesta;
+    void respaldar(int M, int N, float MONTO[12][15]) { // Funcion que permite respaldar los datos de la matriz en un archivo de texto
+        char respuesta; //Variable 'respuesta' definida para saber si el operador desea respaldar los datos s/n
         cout << "¿Desea respaldar los datos en un archivo? (s/n): ";
         cin >> respuesta;
 
         if (respuesta == 's' || respuesta == 'S') {
-            archivo.open("archivo_respaldo.txt",ios::out);
-            archivo.close();
-            archivo.open("archivo_respaldo.txt",ios::app);
-            archivo << M << '\n';
+            archivo.open("archivo_respaldo.txt",ios::out); // Abre el archivo en modo de escritura
+            archivo.close(); // Cierra el archivo
+            archivo.open("archivo_respaldo.txt",ios::app); // Abre el archivo en modo de escritura al final del archivo
+            archivo << M << '\n'; // se guardan los dos primeros numeros en el archivo para indicar las dimensiones de la matriz al momento de cargarla despues
             archivo << N << '\n';
-            for(int i=0; i<M; i++){ // Recorrido por filas
+            for(int i=0; i<M; i++){ // Recorrido por filas para almacenar los datos uno por uno en el archivo de texto
                 for(int j=0; j<N; j++){
                     archivo << MONTO[i][j] << '\n';
                 }
@@ -165,35 +145,53 @@ public:
         cin.get();
     }
 
-    void LeerDatos(int& M, int& N, float MONTO[12][15]){
+    void LeerDatos(int& M, int& N, float MONTO[12][15]){  // Funcion que permite leer los datos del archivo de texto de respaldo y almacenarlos en matriz MONTO
 
-            archivo.open("archivo_respaldo.txt" ,ios::in);
+            archivo.open("archivo_respaldo.txt" ,ios::in); // Abre el archivo en modo de lectura
             if (!archivo)
-                cout << "El archivo no existe" << '\n';
+                cout << "El archivo no existe" << '\n'; // Imprime un mensaje si el archivo no existe
             else {
+                archivo >> M; // se leen los dos primeros numeros del archivo lo cual indica las dimensiones de la matriz
                 archivo >> N;
-                archivo >> M;
-                for(int j=0;j<N;j++){ // Recorrido por filas
-                    for(int i=0;i<M;i++){
-                        archivo >> MONTO[i][j];
+                for(int i=0;i<M;i++){ // Recorrido por filas
+                    for(int j=0;j<N;j++){
+                        archivo >> MONTO[i][j]; // Lee los datos del archivo y los almacena en la matriz MONTO
                     }
                 }
                 archivo.close();
                 cout << "\nDatos recuperados desde respaldo..." << '\n';
-            }
+                }
             cin.get();
+
+            cout <<"\nCosmeticos Gatito: Sistema de gestion de ventas\n";
+        cout << "\nGanancias de " << M << " meses en " << N << " sucursales\n"; // Imprime un encabezado indicando el número de meses y sucursales
+        cout << "\t";
+        for (int i = 0; i < N; i++) { // Bucle para iterar sobre el número de sucursales
+            cout << "sucursal " << i + 1 << "\t"; // Imprime el encabezado de cada sucursal
         }
+        cout << endl;
+
+        for (int i = 0; i < M; i++) { // Bucle para iterar sobre el número de meses
+            cout << "mes " << i + 1 << "\t"; // Imprime el encabezado de cada mes
+            for (int j = 0; j < N; j++) { // Bucle para iterar sobre el número de sucursales
+                cout << "\t" << MONTO[i][j] << "\t"; // Imprime el monto de ventas de la sucursal en el mes correspondiente
+            }
+            cout << endl;
+        }
+    cout << endl;
+    }
+
 };
 
 int main() {
     int opcion;
-    Datos om; // Objeto matriz
-    Archivo oa; // Objeto archivo
+    Datos om; // Creación de objeto matriz
+    Archivo oa; // Creación de objeto archivo
 
-    cout << "Cosmeticos Gatito: Sistema de gestion de ventas." << endl;
+    cout << "Cosmeticos gatito: Sistema de gestion de ventas." << endl;
 
     do {
-        // Menú principal para seleccionar el tipo de usuario
+        // Menú principal para seleccionar el tipo de usuario o salir del programa
         cout << "\nSeleccione el tipo de usuario:" << endl;
         cout << "1. Operador" << endl;
         cout << "2. Directivo" << endl;
@@ -206,28 +204,24 @@ int main() {
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_OPERADOR) { // Verificación de la contraseña del operador
-                om.ingresarVentas();
-                om.mostrarVentas();
-                oa.respaldar(om.M,om.N,om.MONTO);
-            }
-            else {
+                om.ingresarVentas(); // llamada del metodo para ingresar las ventas en la matriz
+                om.mostrarVentas();// llamada del metodo que muestra las ventas por pantalla
+                oa.respaldar(om.M,om.N,om.MONTO); // llamada del metodo que respalda los datos ingresados por el operador a un archivo
+            } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
-        }
-        else if (opcion == 2) { // Opción para directivo
+        } else if (opcion == 2) { // Opción para directivo
             string contrasena;
             cout << "\nIngrese la clave de directivo: ";
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
-                oa.LeerDatos(om.M, om.N, om.MONTO);
-                om.gestionVentas();
-            }
-            else {
+                oa.LeerDatos(om.M, om.N, om.MONTO);   // llamada del metodo que lee y almacena los datos del archivo de respaldo en la matriz nuevamente
+                om.gestionVentas(); //llamada de la función que muestra por pantalla toda la información necesaria para el perfil de Directivo
+            } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
-        }
-        else if (opcion != 3) { // Opción para salir del programa
+        } else if (opcion != 3) { // Opción para salir del programa
             cout << "\nOpcion invalida. Por favor, seleccione una opcion valida." << endl;
         }
     } while (opcion != 3); // El bucle continúa hasta que se selecciona la opción de salir del programa
