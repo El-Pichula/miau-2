@@ -6,7 +6,7 @@ Leve descripcion: miau
 
 Nombres autores:  Maximiliano Cantillana 21.141.918-0
                   Catalina Gamonal [AGREGAR RUT]
-                  Valeria apellidoxd [AGREGAR RUT]
+                  Valeria Cofré [AGREGAR RUT]
                   Liliana Valverde 21.438.525.2
 */
 
