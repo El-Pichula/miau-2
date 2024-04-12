@@ -76,7 +76,7 @@ public:
     }
     void gestionVentas() {
 
-        float mayor = 0;
+        float mayor = 0; // Declaración de variables utilizadas para calcular el apartado de promedios
         int posicion;
 
         cout <<"\nCosmeticos Gatito: Sistema de gestion de ventas\n";
@@ -98,38 +98,34 @@ public:
         for (int j = 0; j < N; j++) {
             int suma = 0; // Inicializa la suma para cada fila
 
-            // Itera sobre cada elemento de la fila actual
             for (int i = 0; i < M; i++) {
                 suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
             }
-
-            // Imprime la suma de la fila actual
-            cout << "Monto de ventas de la Sucursal " << j+1 << " : " << suma << endl;
+            cout << "Monto de ventas de la Sucursal " << j+1 << " : " << suma << endl; // Imprime la suma de la fila actual
         }
         cout << endl;
         cout << "Promedio de ventas por cada mes:\n";
 
-        float promedio, promedios[M];
+        float promedio, promedios[M]; //Se define un arreglo para almacenar los promedios de cada mes y poder trabajar con ellos
 
         for (int i = 0; i < M; i++) {
             int suma = 0; // Inicializa la suma para cada fila
 
-            // Itera sobre cada elemento de la fila actual
             for (int j = 0; j < N; j++) {
-                suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
+                suma += MONTO[i][j]; // Suma el elemento actual al total de la columna
             }
 
-            promedio = (suma/N);
-            promedios[i] = promedio;
+            promedio = (suma/N);    // Se divide la suma total de la fila 
+            promedios[i] = promedio; // Se almacena el promedio de cadda fila en el arreglo promedios
 
-            // Imprime la suma de la fila actual
+            // Imprime el promedio de cada mes 
             cout << "Promedio de ventas del mes " << i+1 << " : " << promedio << endl;
             suma = 0;
         }
-        for (int i = 0; i < M; i++){
+        for (int i = 0; i < M; i++){    // Ciclo que recorre el arreglo promedios para buscar el promedio mayor 
 
             if (promedios[i] > mayor){
-                mayor = promedios[i];
+                mayor = promedios[i];   // Busca el promedio mayor y guarda la posicion de este para saber cual es el mes con mayor promedio
                 posicion = i;
             }
         }
