@@ -2,7 +2,7 @@
 Nombre de la asignatura: Paradigmas de programacion
 NRC: 8150 / Seccion: 558
 
-Leve descripcion: miau
+Leve descripcion: El código es un sistema de gestión de ventas diseñado para una empresa de cosméticos. Ofrece dos opciones de usuario: Operador y Directivo. Los operadores ingresan y respaldan datos de ventas por mes y sucursal. Los directivos pueden leer estos datos respaldados y acceder a estadísticas como la suma de ventas por sucursal, los promedios de ventas mensuales y el mes con el mayor promedio de ventas.
 
 Nombres autores:  Maximiliano Cantillana 21.141.918-0
                   Catalina Gamonal [AGREGAR RUT]
