@@ -79,7 +79,7 @@ public:
         float mayor = 0;
         int posicion;
 
-        cout <<"\nCosmeticos ACME: Sistema de gestion de ventas\n";
+        cout <<"\nCosmeticos Gatito: Sistema de gestion de ventas\n";
         cout <<"\nMontos de ventas de " << N << " sucursales en " << M << " meses\n";
         cout <<"\t\t";
         for (int i = 0; i < M; i++) { // Mostrar encabezados de meses
@@ -169,24 +169,17 @@ public:
 
             archivo.open("archivo_respaldo.txt" ,ios::in);
             if (!archivo)
-                cout << "El archivo no existe!!!" << '\n';
+                cout << "El archivo no existe" << '\n';
             else {
                 archivo >> N;
                 archivo >> M;
-                for(int i=0;i<N;i++){ // Recorrido por filas
-                    for(int j=0;j<M;j++){
+                for(int j=0;j<N;j++){ // Recorrido por filas
+                    for(int i=0;i<M;i++){
                         archivo >> MONTO[i][j];
                     }
                 }
                 archivo.close();
-                cout << "Matriz recuperada desde archivo..." << '\n';
-            }
-            cout << "\nMatriz recuperada:\n";
-            for (int i = 0; i < M; ++i) {
-                for (int j = 0; j < N; ++j) {
-                    cout << MONTO[i][j] << "\t";
-                }
-                cout << endl;
+                cout << "\nDatos recuperados desde respaldo..." << '\n';
             }
             cin.get();
         }
@@ -197,7 +190,7 @@ int main() {
     Datos om; // Objeto matriz
     Archivo oa; // Objeto archivo
 
-    cout << "Cosmeticos gatito: Sistema de gestion de ventas." << endl;
+    cout << "Cosmeticos Gatito: Sistema de gestion de ventas." << endl;
 
     do {
         // Menú principal para seleccionar el tipo de usuario
@@ -228,6 +221,7 @@ int main() {
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
                 oa.LeerDatos(om.M, om.N, om.MONTO);
+                om.gestionVentas();
             }
             else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
