@@ -4,7 +4,7 @@ NRC: 8150 / Seccion: 558
 
 Leve descripcion: miau
 
-Nombres autores: Maximiliano Cantillana [AGREGAR RUT]
+Nombres autores:  Maximiliano Cantillana 21.141.918-0
                   Catalina Gamonal [AGREGAR RUT]
                   Valeria apellidoxd [AGREGAR RUT]
                   Liliana Valverde 21.438.525.2
