@@ -140,7 +140,7 @@ class Archivo {
 private:
     fstream archivo; // Archivo para el respaldo de datos
 public:
-    void respaldar(int M, int N, float MONTO[12][15]) {
+    void respaldar(int M, int N, float MONTO[12][15]) {  // Funcion que permite respaldar los datos de la matriz en un archivo de texto
         char respuesta;
         cout << "¿Desea respaldar los datos en un archivo? (s/n): ";
         cin >> respuesta;
@@ -151,7 +151,7 @@ public:
             archivo.open("archivo_respaldo.txt",ios::app);
             archivo << M << '\n';
             archivo << N << '\n';
-            for(int i=0; i<M; i++){ // Recorrido por filas
+            for(int i=0; i<M; i++){ // Recorrido por filas para almacenar los datos uno por uno en el archivo de texto
                 for(int j=0; j<N; j++){
                     archivo << MONTO[i][j] << '\n';
                 }
@@ -165,15 +165,15 @@ public:
         cin.get();
     }
 
-    void LeerDatos(int& M, int& N, float MONTO[12][15]){
+    void LeerDatos(int& M, int& N, float MONTO[12][15]){  // Funcion que permite leer los datos del archivo de texto de respaldo y almacenarlos en matriz MONTO
 
             archivo.open("archivo_respaldo.txt" ,ios::in);
             if (!archivo)
                 cout << "El archivo no existe" << '\n';
             else {
-                archivo >> N;
+                archivo >> N; // se leen los dos primeros numeros del archivo lo cual indica las dimensiones de la matriz
                 archivo >> M;
-                for(int j=0;j<N;j++){ // Recorrido por filas
+                for(int j=0;j<N;j++){ // Recorrido por columnas
                     for(int i=0;i<M;i++){
                         archivo >> MONTO[i][j];
                     }
@@ -187,13 +187,13 @@ public:
 
 int main() {
     int opcion;
-    Datos om; // Objeto matriz
-    Archivo oa; // Objeto archivo
+    Datos om; // Creación de objeto matriz
+    Archivo oa; // Creación de objeto archivo
 
     cout << "Cosmeticos Gatito: Sistema de gestion de ventas." << endl;
 
     do {
-        // Menú principal para seleccionar el tipo de usuario
+        // Menú principal para seleccionar el tipo de usuario o salir del programa
         cout << "\nSeleccione el tipo de usuario:" << endl;
         cout << "1. Operador" << endl;
         cout << "2. Directivo" << endl;
@@ -206,8 +206,8 @@ int main() {
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_OPERADOR) { // Verificación de la contraseña del operador
-                om.ingresarVentas();
-                om.mostrarVentas();
+                om.ingresarVentas(); // llamada del metodo para ingresar las ventas en la matriz
+                om.mostrarVentas();  // llamada del metodo que muestra las ventas por pantalla
                 oa.respaldar(om.M,om.N,om.MONTO);
             }
             else {
@@ -220,8 +220,8 @@ int main() {
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
-                oa.LeerDatos(om.M, om.N, om.MONTO);
-                om.gestionVentas();
+                oa.LeerDatos(om.M, om.N, om.MONTO);   // llamada del metodo que lee y almacena los datos del archivo de respaldo en la matriz nuevamente
+                om.gestionVentas(); //llamada de la función que muestra por pantalla toda la información necesaria para el perfil de Directivo
             }
             else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
