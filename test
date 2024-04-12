@@ -124,9 +124,8 @@ public:
             }
         }
         cout <<"Mes con mayor promedio: el N° " << posicion << "con un promedio de: " << mayor << endl;
-
+    }
 };
-
 class Archivo {
 private:
     fstream archivo; // Archivo para el respaldo de datos
@@ -204,23 +203,28 @@ int main() {
                 om.ingresarVentas();
                 om.mostrarVentas();
                 oa.respaldar(om.M,om.N,om.MONTO);
-            } else {
+            } 
+            else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
-        } else if (opcion == 2) { // Opción para directivo
+        } 
+        else if (opcion == 2) { // Opción para directivo
             string contrasena;
             cout << "\nIngrese la clave de directivo: ";
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
                 om.gestionVentas();
-            } else {
+            }
+            else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
-        } else if (opcion != 3) { // Opción para salir del programa
+        } 
+        else if (opcion != 3) { // Opción para salir del programa
             cout << "\nOpcion invalida. Por favor, seleccione una opcion valida." << endl;
         }
-    } while (opcion != 3); // El bucle continúa hasta que se selecciona la opción de salir del programa
+    } 
+    while (opcion != 3); // El bucle continúa hasta que se selecciona la opción de salir del programa
 
     return 0;
 }
