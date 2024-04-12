@@ -64,6 +64,67 @@ public:
             cout << endl;
         }
     }
+    void gestionVentas(){
+        
+        float mayor = 0;
+        int posicion;
+
+        cout <<"Cosmeticos ACME: Sistema de gestion de ventas\n";
+        cout <<"Montos de ventas de " << N << "sucursales en " << M << "meses\n";
+        cout <<"\t\t";
+        for (int i = 0; i < M; i++) { // Mostrar encabezados de meses
+            cout << "mes " << i + 1 << "\t";
+        }
+        cout << endl;
+        for (int i = 0; i < N; i++) { // Recorrido por columnas (sucursales)
+            cout << "sucursal " << i + 1 << "\t";
+            for (int j = 0; j < M; j++) { // Recorrido por filas (meses)
+                cout << MONTO[j][i] << "\t";
+            }
+            cout << endl;
+        }
+        cout <<"Monto de ventas por sucursales:\n";
+        for (int i = 0; i < N; ++i) {
+            int suma = 0; // Inicializa la suma para cada fila
+
+        // Itera sobre cada elemento de la fila actual
+            for (int j = 0; j < M; ++j) {
+                suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
+            }
+
+        // Imprime la suma de la fila actual
+        cout << "Monto de ventas de la Sucursal " << i+1 << " : " << suma << endl;
+        }
+        cout << endl;
+        cout << endl;
+        cout << "Promedio de ventas por cada mes:\n";
+
+        float promedio, promedios[M];
+
+        for (int i = 0; i < M; i++) {
+            int suma = 0; // Inicializa la suma para cada fila
+
+        // Itera sobre cada elemento de la fila actual
+            for (int j = 0; j < N; j++) {
+                suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
+            }
+
+            promedio = suma/N;
+            promedios[i] = promedio;
+
+        // Imprime la suma de la fila actual
+            cout << "Promedio de ventas del mes " << i+1 << " : " << suma << endl;
+            suma = 0;
+        }
+        for (int i = 0; i < M; i++){
+
+            if (promedios[i] > mayor){
+                mayor = promedios[i];
+                posicion = i;
+            }
+        }
+        cout <<"Mes con mayor promedio: el N° " << posicion << "con un promedio de: " << mayor << endl;
+
 };
 
 class Archivo {
@@ -100,11 +161,11 @@ public:
     }
 
     void LeerDatos(int M, int N, float MONTO[12][15], string nombreArchivo){
-            // Se abre el archivo en modo lectura para extraer los datos
+            
             archivo.open(nombreArchivo ,ios::in);
-            if (!archivo) // Si se produce un error, el archivo no existe
+            if (!archivo) 
                 cout << "El archivo no existe!!!" << '\n';
-            else { // El archivo existe y se extraen los datos pertinentes
+            else { 
                 archivo >> N;
                 archivo >> M;
                 for(int i=0;i<N;i++){ // Recorrido por filas
@@ -152,7 +213,7 @@ int main() {
             cin >> contrasena;
 
             if (contrasena == CONTRASENA_DIRECTIVO) { // Verificación de la contraseña del directivo
-                cout << "\nFuncionalidad del Directivo aun no implementada miau :33" << endl;
+                om.gestionVentas();
             } else {
                 cout << "\nINCORRECTO, ACCESO DENEGADO." << endl;
             }
