@@ -136,13 +136,9 @@ public:
         cin >> respuesta;
 
         if (respuesta == 's' || respuesta == 'S') {
-            string nombreArchivo;
-            cout << "Ingrese el nombre del archivo: ";
-            cin >> nombreArchivo;
-
-            archivo.open(nombreArchivo + ".txt", ios::out);
+            archivo.open("archivo respaldo.txt",ios::out);
             archivo.close();
-            archivo.open(nombreArchivo + ".txt", ios::app);
+            archivo.open("archivo respaldo.txt",ios::app);
             archivo << M << '\n';
             archivo << N << '\n';
             for(int i=0; i<M; i++){ // Recorrido por filas
@@ -151,7 +147,7 @@ public:
                 }
             }
             archivo.close();
-            cout << "Los datos se han guardado exitosamente en " << nombreArchivo << ".txt" << endl;
+            cout << "Los datos han sido exitosamente guardados..." << endl;
         } else {
             cout << "Los datos no se han guardado." << endl;
         }
