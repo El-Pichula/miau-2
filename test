@@ -85,45 +85,45 @@ public:
         }
         cout << endl;
         cout <<"Monto de ventas por sucursales:\n";
-        for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
             int suma = 0; // Inicializa la suma para cada fila
 
         // Itera sobre cada elemento de la fila actual
-            for (int j = 0; j < M; j++) {
+            for (int i = 0; i < M; i++) {
                 suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
             }
 
         // Imprime la suma de la fila actual
-        cout << "Monto de ventas de la Sucursal " << i+1 << " : " << suma << endl;
+        cout << "Monto de ventas de la Sucursal " << j+1 << " : " << suma << endl;
         }
         cout << endl;
         cout << "Promedio de ventas por cada mes:\n";
 
         float promedio, promedios[M];
 
-        for (int j = 0; j < M; j++) {
+        for (int i = 0; i < M; i++) {
             int suma = 0; // Inicializa la suma para cada fila
 
         // Itera sobre cada elemento de la fila actual
-            for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 suma += MONTO[i][j]; // Suma el elemento actual al total de la fila
             }
 
             promedio = (suma/N);
-            promedios[j] = promedio;
+            promedios[i] = promedio;
 
         // Imprime la suma de la fila actual
-            cout << "Promedio de ventas del mes " << j+1 << " : " << suma << endl;
+            cout << "Promedio de ventas del mes " << i+1 << " : " << promedio << endl;
             suma = 0;
         }
         for (int i = 0; i < M; i++){
-
+            
             if (promedios[i] > mayor){
                 mayor = promedios[i];
                 posicion = i;
-            }
+            } 
         }
-        cout <<"Mes con mayor promedio: el Numero " << posicion << " con un promedio de: " << mayor << endl;
+        cout <<"Mes con mayor promedio: el Numero " << posicion + 1 << " con un promedio de: " << mayor << endl;
     }
 };
 class Archivo {
