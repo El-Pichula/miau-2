@@ -11,64 +11,62 @@ Nombres autores:  Maximiliano Cantillana 21.141.918-0
 */
 
 #include <iostream>
-#include <fstream>
+#include <fstream> //Incluye libreria que permite el manejo de archivos
 using namespace std;
 
-const string CONTRASENA_OPERADOR = "operador123", CONTRASENA_DIRECTIVO = "directivo456";
+const string CONTRASENA_OPERADOR = "operador123", CONTRASENA_DIRECTIVO = "directivo456"; // Declaración de constantes para contraseñas de operador y directivo
 
-class Datos {
+class Datos {// Definición de la clase Datos
 public:
-    float MONTO[12][15]; // Matriz de números reales
-    int M; // Número de meses
-    int N; // Número de sucursales
-    Datos() {
+    float MONTO[12][15]; // Definicion de matriz 'MONTO' en donde se almancenan los datos
+    int M; // Definicion de variable 'meses' como M
+    int N; // Definicion de variable 'sucursales' como N
+    Datos() { // Constructor de la clase Datos
         M = 0;
         N = 0;
-        for (int i = 0; i < 12; i++) { // Inicialización de la matriz
+        for (int i = 0; i < 12; i++) { //Construccion de la matriz 'MONTO'
             for (int j = 0; j < 15; j++) {
                 MONTO[i][j] = 0.0;
             }
         }
     }
 
-    // Método para ingresar las ventas de cada sucursal en cada mes
-    void ingresarVentas() {
-        do {
+    void ingresarVentas() { // Definicion método para ingresar las ventas de cada sucursal en cada mes como 'ingresarVentas'
+        do { //Inicio de un bucle do-while
             cout << "\nIngrese el numero de sucursales (maximo 15): ";
-            cin >> N;
-            if (N < 1 || N > 15) {
+            cin >> N; //Registro numero de sucursales ingresado por el operador
+            if (N < 1 || N > 15) { // Comprueba si el número de meses está fuera del rango permitido
                 cout << "El numero de sucursales debe estar entre 1 y 15!!!" << endl;
             }
-        } while (N < 1 || N > 15);
+        } while (N < 1 || N > 15); // El bucle funcionara si el número de meses esta dentro del rango permitido
 
         do {
             cout << "\nIngrese el numero de meses (maximo 12): ";
-            cin >> M;
-            if (M < 1 || M > 12) {
+            cin >> M; //Registro numero de meses ingresado por el operador
+            if (M < 1 || M > 12) { // Comprueba si el número de meses está fuera del rango permitido
                 cout << "El numero de meses debe estar entre 1 y 12!!!" << endl;
             }
-        } while (M < 1 || M > 12);
+        } while (M < 1 || M > 12); // El bucle funcionara si el número de sucursales esta dentro del rango permitido
 
-        for (int i = 0; i < M; ++i) {
+        for (int i = 0; i < M; ++i) { // Bucle para ingresar las ventas de cada sucursal en cada mes
             for (int j = 0; j < N; ++j) {
                 cout << "\nIngrese ventas de la sucursal " << j + 1 << " en el mes " << i + 1 << ": ";
-                cin >> MONTO[i][j];
+                cin >> MONTO[i][j]; //Se registran los datos ingresados por el operador y se almacenan en la matriz MONTO
             }
         }
     }
 
-    // Método para mostrar las ventas de cada sucursal en cada mes
-    void mostrarVentas() {
+    void mostrarVentas() { // Definicion del metodo para mostrar las ventas de cada sucursal en cada mes como 'mostrarVentas'
         cout << "\nGanancias de " << N << " sucursales en " << M << " meses\n";
         cout << "\t\t";
-        for (int i = 0; i < M; i++) { // Mostrar encabezados de meses
+        for (int i = 0; i < M; i++) { //  Recorrido por filas para mostrar encabezados de meses de manera horizontal
             cout << "mes " << i + 1 << "\t";
         }
         cout << endl;
 
-        for (int i = 0; i < N; i++) { // Recorrido por columnas (sucursales)
+        for (int i = 0; i < N; i++) { // Recorrido por columnas para mostrar encabezados de sucursales de manera vertical
             cout << "sucursal " << i + 1 << "\t";
-            for (int j = 0; j < M; j++) { // Recorrido por filas (meses)
+            for (int j = 0; j < M; j++) { // Recorrido por la matriz 'MONTO' para mostrar las ventas de cada sucursal por mes
                 cout << MONTO[j][i] << "\t";
             }
             cout << endl;
